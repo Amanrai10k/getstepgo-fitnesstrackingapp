@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GetStepGo</string>
+    <string name="default_info_title">newyork</string>
+    <string name="default_info_snippet">newyork</string>
+    <string name="pick_place">Enter Your Location</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAp-a2gQDV-cKI2jSIMMAGukTMpyt6rfK8</string>
+    <string name="firebase_db_location">https://getstepgo-9681b-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+</resources>

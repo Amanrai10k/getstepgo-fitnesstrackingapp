@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF3F6"
+    android:orientation="vertical"
+    android:padding="30dp"
+    tools:context=".SingUpActivity">
+
+
+    <TextView
+        android:id="@+id/tvDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:text="GetStepGO"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:fontFamily="serif" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutPermissionController"
+        android:layout_width="357dp"
+        android:layout_height="460dp"
+        android:background="@drawable/drawablebackground"
+        android:elevation="5dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.353">
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="FirstName"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textAllCaps="true"
+            android:textColor="@color/greyPrimary"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/etLastName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etLastName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="LastName"
+            android:inputType="textPersonName"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textAllCaps="true"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/etFirstName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textAllCaps="true"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etFirstName" />
+
+        <EditText
+            android:id="@+id/etDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="D.O.B (DD/MM/YYYY)"
+            android:inputType="date"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+        <EditText
+            android:id="@+id/etWeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="Weight (kg)"
+            android:inputType="numberDecimal"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDOB" />
+
+        <EditText
+            android:id="@+id/etHeight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="Height (cm)"
+            android:inputType="numberDecimal"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purPrimary"
+            android:ellipsize="end"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:lines="1"
+            android:minHeight="48dp"
+            android:textColor="@color/greyPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+
+        <RadioGroup
+            android:id="@+id/rgGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword">
+
+            <RadioButton
+                android:id="@+id/rbtnMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@color/purPrimary"
+                android:checked="true"
+                android:text="Male"
+                android:textColor="@color/greyPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/rbtnFemale"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+            <RadioButton
+                android:id="@+id/rbtnFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@color/purPrimary"
+                android:text="Female"
+                android:textColor="@color/greyPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/rbtnMale"
+                app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/ivGender"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/male"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgGender"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageButton
+        android:id="@+id/ibtnToDashboard"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/gradientbtn"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutPermissionController"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/ic_nextbtn" />
+
+    <TextView
+        android:id="@+id/tvToDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignUp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/ibtnToDashboard"
+        app:layout_constraintStart_toStartOf="@+id/ibtnToDashboard"
+        app:layout_constraintTop_toBottomOf="@+id/ibtnToDashboard" />
+
+    <TextView
+        android:id="@+id/tvHaveAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account?"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvToDashboard" />
+
+    <TextView
+        android:id="@+id/tvbtnToLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Continue to Login"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvHaveAcc"
+        app:layout_constraintStart_toStartOf="@+id/tvHaveAcc"
+        app:layout_constraintTop_toBottomOf="@+id/tvHaveAcc" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

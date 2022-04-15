@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF3F6"
+    android:orientation="vertical"
+    tools:context=".SingUpActivity">
+
+    <!--    android:padding="30dp"-->
+
+
+    <TextView
+        android:id="@+id/GetStepGo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:text="GetStepGO"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:fontFamily="serif" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutPermissionController"
+        android:layout_width="357dp"
+        android:layout_height="460dp"
+        android:background="@drawable/drawablebackground"
+        android:elevation="5dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.354">
+
+
+        <TextView
+            android:id="@+id/tvToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icGSGCoin"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvgsgcoin"
+            app:layout_constraintEnd_toStartOf="@+id/tvgsgcoin"
+            app:layout_constraintTop_toTopOf="@+id/tvgsgcoin"
+            app:srcCompat="@mipmap/ic_gsgcoin" />
+
+        <TextView
+            android:id="@+id/tvgsgcoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="0"
+            android:textColor="@color/yellow_coins"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/ivSteps"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toStartOf="@+id/ivDistance"
+            app:layout_constraintHorizontal_bias="0.162"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvToday"
+            app:srcCompat="@mipmap/ic_steps" />
+
+        <TextView
+            android:id="@+id/tvSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Steps\n"
+            android:textAlignment="center"
+            android:textColor="@color/green_step"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivSteps"
+            app:layout_constraintStart_toEndOf="@+id/ivSteps"
+            app:layout_constraintTop_toTopOf="@+id/ivSteps" />
+
+        <TextView
+            android:id="@+id/tvStepCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:maxLength="5"
+            android:textAlignment="center"
+            android:textColor="@color/green_step"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSteps"
+            app:layout_constraintEnd_toEndOf="@+id/tvSteps"
+            app:layout_constraintStart_toEndOf="@+id/ivSteps" />
+
+        <ImageView
+            android:id="@+id/ivDistance"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="68dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivSteps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivSteps"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/ic_distance" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance\n"
+            android:textAlignment="center"
+            android:textColor="@color/red_distance"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDistance"
+            app:layout_constraintStart_toEndOf="@+id/ivDistance"
+            app:layout_constraintTop_toTopOf="@+id/ivDistance" />
+
+        <TextView
+            android:id="@+id/tvDistanceCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="5"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/red_distance"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDistance"
+            app:layout_constraintEnd_toEndOf="@+id/tvDistance"
+            app:layout_constraintStart_toEndOf="@+id/ivDistance" />
+
+
+        <ImageView
+            android:id="@+id/ivCalorie"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvSteps"
+            app:layout_constraintStart_toEndOf="@+id/ivSteps"
+            app:layout_constraintTop_toBottomOf="@+id/tvSteps"
+            app:srcCompat="@mipmap/ic_calorie" />
+
+        <TextView
+            android:id="@+id/tvCalorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories Burnt\n"
+            android:textAlignment="center"
+            android:textColor="@color/blue_calories"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCalorie"
+            app:layout_constraintStart_toEndOf="@+id/ivCalorie"
+            app:layout_constraintTop_toTopOf="@+id/ivCalorie" />
+
+        <TextView
+            android:id="@+id/tvCalorieCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:maxLength="5"
+            android:textAlignment="center"
+            android:textColor="@color/blue_calories"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/tvCalorie"
+            app:layout_constraintEnd_toEndOf="@+id/tvCalorie"
+            app:layout_constraintStart_toStartOf="@+id/tvCalorie" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCalorie" />
+
+
+        <!--            android:background="@color/colorprimary"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/cvDateSelecter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@color/white"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutPermissionController"
+        app:textColorSelected="@color/purPrimary" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/gradientbtn"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvDateSelecter"
+        app:srcCompat="@drawable/ic_start1" />
+
+    <TextView
+        android:id="@+id/tvStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnBack"
+        app:layout_constraintStart_toStartOf="@+id/btnBack"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+    <TextView
+        android:id="@+id/tvDashboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:text="Dashboard"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutPermissionController"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:fontFamily="serif" />
+
+    <Button
+        android:id="@+id/btnprofile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/maledp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

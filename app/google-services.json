@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "283448507338",
+    "firebase_url": "https://getstepgo-9681b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "getstepgo-9681b",
+    "storage_bucket": "getstepgo-9681b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283448507338:android:fdcd309408317853dead33",
+        "android_client_info": {
+          "package_name": "com.mact.GetStepGo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283448507338-o1fdlnbjciqsuip053h5ha9mp49ad65c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMHQiEw3eHlCf9t0DgQHS1qMlB79llovo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283448507338-o1fdlnbjciqsuip053h5ha9mp49ad65c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

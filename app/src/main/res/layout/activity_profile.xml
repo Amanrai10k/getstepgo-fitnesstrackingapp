@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF3F6"
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".SingUpActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutPermissionController"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/drawablebackground"
+        android:elevation="8dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/ivprofilewall"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profilewall" />
+
+        <ImageView
+            android:id="@+id/ivprofiledp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="140dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivprofilewall"
+            app:srcCompat="@drawable/maledp" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USER"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/ivprofiledp"
+            app:layout_constraintStart_toStartOf="@+id/ivprofiledp"
+            app:layout_constraintTop_toBottomOf="@+id/ivprofiledp" />
+
+        <GridLayout
+            android:id="@+id/glStepsCount"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:background="@drawable/drawablebackground"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/glDistanceTravelled"
+            app:layout_constraintEnd_toStartOf="@+id/glCaloriesBurnt"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvUsername">
+
+
+            <ImageView
+                android:id="@+id/ivSteps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                app:srcCompat="@mipmap/ic_steps" />
+
+            <TextView
+                android:id="@+id/tvStepsTaken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:text="Steps Taken"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvStepCount"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/green_step"
+                android:textSize="30dp" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/glCaloriesBurnt"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:background="@drawable/drawablebackground"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/glCoinsEarned"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/glStepsCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+            app:layout_constraintVertical_chainStyle="spread">
+
+            <ImageView
+                android:id="@+id/ivCalorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                app:srcCompat="@mipmap/ic_calorie" />
+
+            <TextView
+                android:id="@+id/tvCalorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:text="Calories Burnt"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCalorieCount"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/blue_calories"
+                android:textSize="30dp" />
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/glDistanceTravelled"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:background="@drawable/drawablebackground"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogout"
+            app:layout_constraintEnd_toStartOf="@+id/glCoinsEarned"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/glStepsCount">
+
+            <ImageView
+                android:id="@+id/ivDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                app:srcCompat="@mipmap/ic_distance" />
+
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:text="Distance Travelled"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDistanceCount"
+                android:layout_width="145dp"
+                android:layout_height="83dp"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/red_distance"
+                android:textSize="30dp" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:id="@+id/glCoinsEarned"
+            android:layout_width="150sp"
+            android:layout_height="150sp"
+            android:background="@drawable/drawablebackground"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnToDashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/glDistanceTravelled"
+            app:layout_constraintTop_toBottomOf="@+id/glCaloriesBurnt">
+
+            <ImageView
+                android:id="@+id/ivGSGCoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                app:srcCompat="@mipmap/ic_gsgcoin" />
+
+            <TextView
+                android:id="@+id/tvGSGCoin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:text="Coins Earned"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGSGCoinCount"
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/yellow_coins"
+                android:textSize="30dp" />
+        </GridLayout>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradientbtn"
+            android:padding="10dp"
+            android:text="Logout"
+            android:layout_marginBottom="5sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnToDashboard"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <Button
+            android:id="@+id/btnToDashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradientbtn"
+            android:padding="10dp"
+            android:layout_marginBottom="5sp"
+            android:text="Dashboard"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnLogout"
+           />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
