@@ -20,8 +20,8 @@ import java.util.*
 
 class SingUpActivity : AppCompatActivity() {
     private lateinit var database : DatabaseReference
+    private lateinit var userDataDatabase : DatabaseReference
     private lateinit var user : FirebaseAuth
-    private var exception: Boolean = true
 
     override fun onBackPressed() {
 
@@ -34,12 +34,12 @@ class SingUpActivity : AppCompatActivity() {
         user = FirebaseAuth.getInstance()
         ibtnToDashboard.setOnClickListener {
 
-            if (validateFName() && validateLName() && validateEmail() && validateDOB() && validateweight() && validateHeight() && validatePassword()) {
+            if (validateFName() && validateLName() && validateEmail() && validateDOB() && validateWeight() && validateHeight() && validatePassword()) {
                 registerUser()
 
             }
         }
-        tvbtnToLogIn.setOnClickListener {
+        tvbtnToSignUp.setOnClickListener {
             Intent(this, LoginActivity::class.java).also {
                 startActivity(it)
                 overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
@@ -114,12 +114,20 @@ class SingUpActivity : AppCompatActivity() {
         val password = etPassword.text.toString()
         val checkedGenderRadioButtonId = rgGender.checkedRadioButtonId
         val gender = findViewById<RadioButton>(checkedGenderRadioButtonId).text
+        val currentDate = getDate()
         user.currentUser?.sendEmailVerification()
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "Email sent Successfully to "+ user.currentUser?.email.toString())
                     database = FirebaseDatabase.getInstance(url).getReference("users")
                     val users = Users(firstName, lastName, email, weight, height, password)
+                    userDataDatabase = FirebaseDatabase.getInstance(url).getReference("userData")
+                    val userData = UserData(email,0,0F,0F,0,0,0F,0F,0,currentDate)
+                    userDataDatabase.child(userName).setValue(userData).addOnSuccessListener {
+                        Log.d("UserData","Successfully Initialized Userdata")
+                    }.addOnFailureListener {
+                        Log.d("UserData","Failed to Initialize Userdata")
+                    }
                     database.child(userName).setValue(users).addOnSuccessListener {
                         etFirstName.text.clear()
                         etLastName.text.clear()
@@ -132,8 +140,6 @@ class SingUpActivity : AppCompatActivity() {
                             "MyActivity",
                             "$firstName $lastName @($email) , $gender" + " born on $dob has height ${height}cm & Weight ${weight}kg , Registered as an User"
                         )
-//                    Toast.makeText(applicationContext, "$firstName has successfully SignedUp", Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(applicationContext, "Enter Your Password To Continue", Toast.LENGTH_LONG).show()
                         Log.d("userCurrent", "${user.currentUser}")
                         Toast.makeText(
                             this,
@@ -143,22 +149,33 @@ class SingUpActivity : AppCompatActivity() {
                         Handler().postDelayed({
                             user.signOut()
                             Intent(this, LoginActivity::class.java).also {
-
                                 startActivity(it)
-                                overridePendingTransition(R.anim.fadein_animation,
-                                    R.anim.fadeout_animation)
+                                overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
                                 finish()
                             }
                         }, 1500) // 1500 is the delayed time in milliseconds.
                     }.addOnFailureListener {
-                        Log.d(
-                            "SignUp", "Failed TO Signup"
-                        )
+                        Log.d("SignUp", "Failed TO Signup")
                         Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
                     }
+
                 }
             }
 
+    }
+    private fun getDate() : String{
+        val c =Calendar.getInstance()
+        var day = c.get(Calendar.DAY_OF_MONTH).toString()
+        var month =  (c.get(Calendar.MONTH) + 1).toString()
+        if(day.length<2){
+            day = "0$day"
+        }
+        if(month.length<2){
+            month = "0$month"
+        }
+        val year = c.get(Calendar.YEAR).toString()
+        val date = "$day$month$year"
+        return date
     }
     private fun validateFName() : Boolean{
         val first = etFirstName.text.toString().trim()
@@ -196,12 +213,12 @@ class SingUpActivity : AppCompatActivity() {
     }
     private fun validateEmail() : Boolean{
         val email = etEmail.text.toString().trim()
-        val emailregex : Regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$".toRegex()
+        val emailRegex : Regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$".toRegex()
         if (email.isEmpty()){
             etEmail.error = "Enter Your Email"
                 return false
         }
-        else if(!email.matches(emailregex)){
+        else if(!email.matches(emailRegex)){
             etEmail.error = "Invalid Email Address"
             return false
         }
@@ -213,7 +230,7 @@ class SingUpActivity : AppCompatActivity() {
     }
     private fun validatePassword() : Boolean{
         val password = etPassword.text.toString().trim()
-        val passwordregex : Regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}\$".toRegex()
+        val passwordRegex : Regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,16}\$".toRegex()
 //        Regex Conditions:
 //        Min 1 uppercase letter.
 //        Min 1 lowercase letter.
@@ -226,7 +243,7 @@ class SingUpActivity : AppCompatActivity() {
             etPassword.error = "Enter Your Password"
                 return false
         }
-        else if(!password.matches(passwordregex)) {
+        else if(!password.matches(passwordRegex)) {
             etPassword.error = "Must be 8-16 characters Long, Containing an UpperCase, Lowercase and Number"
             return false
         }
@@ -236,30 +253,29 @@ class SingUpActivity : AppCompatActivity() {
             return true
         }
     }
-    private fun validateweight() : Boolean{
-        val emojicode = "1F605" //Enter Code without u prefix
-
+    private fun validateWeight() : Boolean{
+        val emojiCode = "1F605" //Enter Code without u prefix
         val weight = etWeight.text.toString().trim()
         if (weight.isEmpty()){
             etWeight.error = "Enter Your Weight"
             return false
         } else if(weight.toInt()>635)
         {
-            etWeight.error = "You must be Joking Right ${getEmojiByUnicode(emojicode)}.\nPls Enter Your Weight Correctly "
+            etWeight.error = "You must be Joking Right ${getEmojiByUnicode(emojiCode)}.\nPls Enter Your Weight Correctly "
         }
         else
             etWeight.error=null
         return true
     }
     private fun validateHeight() : Boolean{
-        val emojicode = "1F64B" //Enter Code without u prefix
+        val emojiCode = "1F64B" //Enter Code without u prefix
         val height = etHeight.text.toString().trim()
         if (height.isEmpty()){
             etHeight.error = "Enter Your Height"
                 return false
         }else if(height.toInt()>250)
         {
-            etHeight.error = "Hey Tall Guy ${getEmojiByUnicode(emojicode)}.\nPls Enter Your Height Correctly "
+            etHeight.error = "Hey Tall Guy ${getEmojiByUnicode(emojiCode)}.\nPls Enter Your Height Correctly "
         }
         else
             etHeight.error=null
@@ -270,21 +286,18 @@ class SingUpActivity : AppCompatActivity() {
         return String(Character.toChars(code))
     }
     private fun emailToUserName(email : String ): String{
-        var count = 0
-        for (i in email){
-            if(i=='@'){
-                println(count)
-                break
-            }
-            count++
-        }
-        var userName= email.slice(0 until count)
-
+//        var count = 0
+//        for (i in email){
+//            if(i=='@'){
+//                break
+//            }
+//            count++
+//        }
+//        var userName= email.slice(0 until count)
+        var userName = email
         val regex = Regex("[^A-Za-z0-9]")
         userName = regex.replace(userName, "")
         return userName
     }
-
-
 }
 

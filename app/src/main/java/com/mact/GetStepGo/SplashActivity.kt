@@ -23,10 +23,8 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
-
         val scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scaleup_animation)
-        val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.sideslide_animation)
-
+        val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slidedown_animation)
         ivsplashlogo.startAnimation(scaleAnimation)
         tvsplash.startAnimation(slideAnimation)
 

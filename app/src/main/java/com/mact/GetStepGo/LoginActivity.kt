@@ -7,14 +7,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.Window
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.tvbtnToLogIn
-import java.util.*
+import kotlinx.android.synthetic.main.activity_login.tvbtnToSignUp
 
 
 class LoginActivity : AppCompatActivity() {
@@ -27,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        val slideDownAnimation = AnimationUtils.loadAnimation(this, R.anim.slidedown_animation)
+        val slideUpAnimation = AnimationUtils.loadAnimation(this, R.anim.slideup_animation)
+        tvHead.startAnimation(slideDownAnimation)
+        ivHeadBack.startAnimation(slideDownAnimation)
+        tvHaveAcc.startAnimation(slideUpAnimation)
+        tvbtnToSignUp.startAnimation(slideUpAnimation)
         user = FirebaseAuth.getInstance()
         if(user.currentUser!= null){
             user.currentUser?.let {
@@ -43,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        tvbtnToLogIn.setOnClickListener{
+        tvbtnToSignUp.setOnClickListener{
             Intent(this,SingUpActivity::class.java).also {
                 startActivity(it)
                 overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
@@ -155,16 +161,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun emailToUserName(email : String ): String{
-        var count = 0
-        for (i in email){
-            if(i=='@'){
-                println(count)
-                break
-            }
-            count++
-        }
-        var userName= email.slice(0 until count)
-
+        var userName= email
         val regex = Regex("[^A-Za-z0-9]")
         userName = regex.replace(userName, "")
         return userName

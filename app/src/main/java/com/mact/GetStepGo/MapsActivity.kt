@@ -2,7 +2,6 @@ package com.mact.GetStepGo
 
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -38,7 +37,7 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback,LocationListener {
         setContentView(R.layout.fragment_maps)
         fusedLocationProviderClient =  LocationServices.getFusedLocationProviderClient(this)
         fetchLocation()
-        btnBack.setOnClickListener(){
+        btnStopCounting.setOnClickListener(){
             finish()
 //            val intent = Intent(this, CountingActivity::class.java)
 //            startActivity(intent)

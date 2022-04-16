@@ -90,7 +90,7 @@
             app:layout_constraintTop_toTopOf="@+id/ivSteps" />
 
         <TextView
-            android:id="@+id/tvStepCount"
+            android:id="@+id/tvTotalSteps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -126,7 +126,7 @@
             app:layout_constraintTop_toTopOf="@+id/ivDistance" />
 
         <TextView
-            android:id="@+id/tvDistanceCount"
+            android:id="@+id/tvTotalDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="5"
@@ -162,7 +162,7 @@
             app:layout_constraintTop_toTopOf="@+id/ivCalorie" />
 
         <TextView
-            android:id="@+id/tvCalorieCount"
+            android:id="@+id/tvTotalCalories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
@@ -203,7 +203,7 @@
         app:textColorSelected="@color/purPrimary" />
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/btnStopCounting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
@@ -222,12 +222,12 @@
         android:layout_height="wrap_content"
         android:text="Start"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnBack"
-        app:layout_constraintStart_toStartOf="@+id/btnBack"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+        app:layout_constraintEnd_toEndOf="@+id/btnStopCounting"
+        app:layout_constraintStart_toStartOf="@+id/btnStopCounting"
+        app:layout_constraintTop_toBottomOf="@+id/btnStopCounting" />
 
     <TextView
-        android:id="@+id/tvDashboard"
+        android:id="@+id/tvHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.8"

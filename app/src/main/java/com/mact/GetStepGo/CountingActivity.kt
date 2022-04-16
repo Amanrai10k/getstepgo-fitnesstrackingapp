@@ -10,9 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_counting.*
+import java.util.*
 
 class CountingActivity : AppCompatActivity(), SensorEventListener {
+    private lateinit var user : FirebaseAuth
+    private lateinit var userDataDatabase : DatabaseReference
+    private lateinit var database : DatabaseReference
     // Added SensorEventListener the MainActivity class
     // Implement all the members in the class Counting Activity
     // after adding SensorEventListener
@@ -40,22 +47,108 @@ class CountingActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_counting)
+        user = FirebaseAuth.getInstance()
+        val currentDate = getDate()
+        val currentDay = currentDate.take(2).toInt()
+        val currentMonth = currentDate.slice(2..3).toInt()
+        val currentYear = currentDate.takeLast(4).toInt()
 
+        val url = getString(R.string.firebase_db_location)
+        userDataDatabase = FirebaseDatabase.getInstance(url).getReference("userData")
+        database = FirebaseDatabase.getInstance(url).getReference("users")
+        var totalSteps = 0
+        var totalCalories = 0F
+        var totalDistance = 0F
+        var currentSteps  = 0
+        var currentCalories: Float
+        var currentDistance: Float
+        var height : Int
+        var weight = 60
+        var currentGSGCoins  = 0
+        var totalGSGCoins = 0
+        var dataDay  = 0
+        var dataMonth  = 0
+        var dataYear  = 0
+        var dataDate : String
         loadData()
         resetSteps()
 
         // Adding a context of SENSOR_SERVICE aas Sensor Manager
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
+        if(user.currentUser!==null){
+            user.currentUser?.let {
+                val email = it.email.toString()
+                val userName = emailToUserName(email)
+                database.child(userName).get().addOnSuccessListener { info ->
+                    if(info.exists()){
+                        weight = info.child("weight").value.toString().toInt()
+                        height = info.child("height").value.toString().toInt()
+//                      Age = info.child("currentDistance").value.toString().toInt()
 
-        btnBack.setOnClickListener(){
+                    }else{
+                        Toast.makeText(applicationContext, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                }
+                userDataDatabase.child(userName).get().addOnSuccessListener { info ->
+                    if(info.exists()){
+                        currentSteps = info.child("currentSteps").value.toString().toInt()
+                        currentCalories = info.child("currentCalories").value.toString().toFloat()
+                        currentDistance = info.child("currentDistance").value.toString().toFloat()
+                        currentGSGCoins = info.child("currentGSGCoins").value.toString().toInt()
+                        totalSteps = info.child("totalSteps").value.toString().toInt()
+                        totalCalories = info.child("totalCalories").value.toString().toFloat()
+                        totalDistance = info.child("totalDistance").value.toString().toFloat()
+                        totalGSGCoins = info.child("totalGSGCoins").value.toString().toInt()
+                        totalGSGCoins = info.child("totalGSGCoins").value.toString().toInt()
+                        dataDate = info.child("date").value.toString()
+                        dataDay = dataDate.take(2).toInt()
+                        dataMonth = dataDate.slice(2..3).toInt()
+                        dataYear = dataDate.takeLast(4).toInt()
+                        when {
+                            dataYear < currentYear -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                            dataMonth < currentMonth -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                            dataDay < currentDay -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                        }
+                    }else{
+                        Toast.makeText(applicationContext, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        btnStopCounting.setOnClickListener(){
             Log.d(tvStepsTaken.text.toString(),"Total Steps")
 //            val steps = totalSteps.toInt()
-            val steps = tvStepsTaken.text
-            val intent = Intent(this, DashboardActivity::class.java)
-            intent.putExtra("StepsTaken",steps)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
+            val steps = tvStepsTaken.text.toString().toInt()
+            val calories = (steps * (0.00072) * weight * 1.036).toFloat()
+            val distance = ((steps/100.00)  * 0.072).toFloat()
+            currentSteps += steps
+            currentCalories =(currentSteps * (0.00072) * weight * 1.036).toFloat()
+            currentDistance = ((currentSteps/100.00)  * 0.072).toFloat()
+            if(currentSteps > 1000){
+                currentGSGCoins += currentSteps / 1000
+            }
+                    totalSteps += steps
+                    totalCalories += calories
+                    totalDistance += distance
+                    totalGSGCoins= currentGSGCoins
 
                 previousTotalSteps = totalSteps
 
@@ -65,15 +158,51 @@ class CountingActivity : AppCompatActivity(), SensorEventListener {
 
                 // This will save the data
                 saveData()
-
+            if(user.currentUser!==null) {
+                user.currentUser?.let {
+                    val email = it.email.toString()
+                    val userName = emailToUserName(email)
+                    val userData = UserData(email,currentSteps,currentCalories,currentDistance,currentGSGCoins,totalSteps,totalCalories,totalDistance,totalGSGCoins,currentDate)
+                    userDataDatabase.child(userName).setValue(userData).addOnSuccessListener {
+                        Log.d("Counting", "Successfully Uploaded Data")
+                    }.addOnFailureListener {
+                        Log.d("Counting", "Failed TO Upload Data")
+                    }
+                }
+            }
+            val intent = Intent(this, DashboardActivity::class.java)
+//            intent.putExtra("StepsTaken",steps)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
             finish()
         }
+
         btnMaps.setOnClickListener(){
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
         }
 
+    }
+    private fun emailToUserName(email : String ): String{
+        var userName= email
+        val regex = Regex("[^A-Za-z0-9]")
+        userName = regex.replace(userName, "")
+        return userName
+    }
+    private fun getDate() : String{
+        val c =Calendar.getInstance()
+        var day = c.get(Calendar.DAY_OF_MONTH).toString()
+        var month =  (c.get(Calendar.MONTH) + 1).toString()
+        if(day.length<2){
+            day = "0$day"
+        }
+        if(month.length<2){
+            month = "0$month"
+        }
+        val year = c.get(Calendar.YEAR).toString()
+        val date = "$day$month$year"
+        return date
     }
 
     override fun onResume() {
@@ -176,5 +305,6 @@ class CountingActivity : AppCompatActivity(), SensorEventListener {
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         // We do not have to write anything in this function for this app
     }
+
 }
 

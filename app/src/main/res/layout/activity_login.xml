@@ -10,8 +10,17 @@
     android:padding="30dp">
 
 
+    <ImageView
+        android:id="@+id/ivHeadBack"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/loginbackground" />
+
     <TextView
-        android:id="@+id/tvDashboard"
+        android:id="@+id/tvHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.8"
@@ -20,13 +29,13 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivHeadBack"
         tools:fontFamily="serif" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutPermissionController"
         android:layout_width="359dp"
         android:layout_height="136dp"
+        android:layout_marginTop="50sp"
         android:background="@drawable/drawablebackground"
         android:elevation="5dp"
         android:padding="20dp"
@@ -78,11 +87,11 @@
         android:layout_height="50dp"
         android:background="@drawable/gradientbtn"
         android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+android:layout_marginTop="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayoutPermissionController"
-        app:layout_constraintVertical_bias="0.3"
+
         app:srcCompat="@drawable/ic_nextbtn" />
 
     <TextView
@@ -107,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ibtnLogin" />
 
     <TextView
-        android:id="@+id/tvbtnToLogIn"
+        android:id="@+id/tvbtnToSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

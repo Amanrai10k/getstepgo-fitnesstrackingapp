@@ -3,19 +3,24 @@ package com.mact.GetStepGo
 
 
 import android.content.Intent
+
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import java.util.Calendar
 
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_dashboard.*
-
+import java.util.*
 
 
 class DashboardActivity : AppCompatActivity() {
     private var SECOND_ACTIVITY_REQUEST_CODE = 0
     private lateinit var user : FirebaseAuth
-
+    private lateinit var database : DatabaseReference
     override fun onBackPressed() {
 
     }
@@ -23,11 +28,58 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         user = FirebaseAuth.getInstance()
+        val url = getString(R.string.firebase_db_location)
+
+        val today = "Today : ${getDate()}"
+        tvToday.text = today
+        database = FirebaseDatabase.getInstance(url).getReference("userData")
+
+//        val steps = intent.getStringExtra("StepsTaken")
+//
+//        val stepsCount = steps?.toInt()
+//
+//        if (stepsCount != null) {
+//            if(stepsCount>0) {
+//                tvStepCount.text = steps
+//            }
+//        }
+//        val stepTaken = tvStepCount.text.toString().toInt()
+//        val calories = stepTaken * (0.00072) * 60 * 1.036
+//        val distance = (stepTaken/100.00)  * 0.072
+//        tvCalorieCount.text = calories.toString()
+//        tvDistanceCount.text= distance.toString()
+
         if(user.currentUser!==null){
             user.currentUser?.let {
+                val email = it.email.toString()
+                val userName = emailToUserName(email)
                 Log.d("currentUserAtDashboard","Welcome "+it.email.toString())
+
+                database.child(userName).get().addOnSuccessListener { info ->
+                    if(info.exists()){
+                        val email = info.child("email").value
+                        val currentSteps = info.child("currentSteps").value
+                        val currentCalories = info.child("currentCalories").value
+                        val currentDistance = info.child("currentDistance").value
+//                        val totalSteps = info.child("totalSteps").value
+//                        val totalCalories = info.child("totalCalories").value
+//                        val totalDistance = info.child("totalDistance").value
+                        val currentGSGCoins = info.child("currentGSGCoins").value.toString().toInt()
+                        tvTotalSteps.text = currentSteps.toString()
+                        tvTotalCalories.text = currentCalories.toString()
+                        tvTotalDistance.text= currentDistance.toString()
+                        tvgsgcoin.text = currentGSGCoins.toString()
+                    }else{
+                        Toast.makeText(applicationContext, "User Doesn't Exist", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+
+
 
 //        val startDate = Calendar.getInstance()
 //        startDate.add(Calendar.MONTH, -1)
@@ -45,23 +97,10 @@ class DashboardActivity : AppCompatActivity() {
 //                //do something
 //            }
 //        }
-        val steps = intent.getStringExtra("StepsTaken")
-
-        val stepsCount = steps?.toInt()
-
-        if (stepsCount != null) {
-            if(stepsCount>0) {
-                tvStepCount.text = steps
-            }
-        }
-        val stepTaken = tvStepCount.text.toString().toInt()
-        val calories = stepTaken * (0.00072) * 60 * 1.036
-        tvCalorieCount.text = calories.toString()
-        val distance = (stepTaken/100.00)  * 0.072
-        tvDistanceCount.text= distance.toString()
 
 
-        btnBack.setOnClickListener {
+
+        btnStopCounting.setOnClickListener {
             val intent = Intent(this, StartCountdownActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.fadein_animation, R.anim.fadeout_animation)
@@ -95,6 +134,27 @@ class DashboardActivity : AppCompatActivity() {
 //            }
 //        }
 
+    }
+    private fun getDate() : String{
+        val c =Calendar.getInstance()
+        var day = c.get(Calendar.DAY_OF_MONTH).toString()
+        var month = (c.get(Calendar.MONTH) + 1).toString()
+
+        if(day.length<2){
+            day = "0$day"
+        }
+        if(month.length<2){
+            month = "0$month"
+        }
+        val year = c.get(Calendar.YEAR).toString()
+        val date = "$day/$month/$year"
+        return date
+    }
+    private fun emailToUserName(email : String ): String{
+        var userName= email
+        val regex = Regex("[^A-Za-z0-9]")
+        userName = regex.replace(userName, "")
+        return userName
     }
 
 }

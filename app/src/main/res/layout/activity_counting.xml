@@ -10,7 +10,7 @@
     android:padding="30dp">
 
     <TextView
-        android:id="@+id/tvDashboard"
+        android:id="@+id/tvHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.8"
@@ -91,7 +91,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/btnBack"
+        android:id="@+id/btnStopCounting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gradientbtn"
@@ -109,9 +109,9 @@
         android:layout_height="wrap_content"
         android:text="Stop"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/btnBack"
-        app:layout_constraintStart_toStartOf="@+id/btnBack"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+        app:layout_constraintEnd_toEndOf="@+id/btnStopCounting"
+        app:layout_constraintStart_toStartOf="@+id/btnStopCounting"
+        app:layout_constraintTop_toBottomOf="@+id/btnStopCounting" />
 
     <TextView
         android:id="@+id/tvHint"
