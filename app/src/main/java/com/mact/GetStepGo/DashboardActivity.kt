@@ -14,13 +14,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import java.util.*
 
 
 class DashboardActivity : AppCompatActivity() {
     private var SECOND_ACTIVITY_REQUEST_CODE = 0
     private lateinit var user : FirebaseAuth
-    private lateinit var database : DatabaseReference
+    private lateinit var userDataDatabase : DatabaseReference
     override fun onBackPressed() {
 
     }
@@ -30,9 +29,13 @@ class DashboardActivity : AppCompatActivity() {
         user = FirebaseAuth.getInstance()
         val url = getString(R.string.firebase_db_location)
 
-        val today = "Today : ${getDate()}"
+        val today = "Today : ${getDate(1)}"  //Using type 1 : for formatted date with '/'
         tvToday.text = today
-        database = FirebaseDatabase.getInstance(url).getReference("userData")
+        val currentDate = getDate(0)
+        val currentDay = currentDate.take(2).toInt()
+        val currentMonth = currentDate.slice(2..3).toInt()
+        val currentYear = currentDate.takeLast(4).toInt()
+        userDataDatabase = FirebaseDatabase.getInstance(url).getReference("userData")
 
 //        val steps = intent.getStringExtra("StepsTaken")
 //
@@ -55,16 +58,38 @@ class DashboardActivity : AppCompatActivity() {
                 val userName = emailToUserName(email)
                 Log.d("currentUserAtDashboard","Welcome "+it.email.toString())
 
-                database.child(userName).get().addOnSuccessListener { info ->
+                userDataDatabase.child(userName).get().addOnSuccessListener { info ->
                     if(info.exists()){
                         val email = info.child("email").value
-                        val currentSteps = info.child("currentSteps").value
-                        val currentCalories = info.child("currentCalories").value
-                        val currentDistance = info.child("currentDistance").value
+                        var currentSteps = info.child("currentSteps").value
+                        var currentCalories = info.child("currentCalories").value
+                        var currentDistance = info.child("currentDistance").value
 //                        val totalSteps = info.child("totalSteps").value
 //                        val totalCalories = info.child("totalCalories").value
 //                        val totalDistance = info.child("totalDistance").value
                         val currentGSGCoins = info.child("currentGSGCoins").value.toString().toInt()
+
+                        val dataDate = info.child("date").value.toString()
+                        val dataDay = dataDate.take(2).toInt()
+                        val dataMonth = dataDate.slice(2..3).toInt()
+                        val dataYear = dataDate.takeLast(4).toInt()
+                        when {
+                            dataYear < currentYear -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                            dataMonth < currentMonth -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                            dataDay < currentDay -> {
+                                currentSteps = 0
+                                currentCalories = 0F
+                                currentDistance = 0F
+                            }
+                        }
                         tvTotalSteps.text = currentSteps.toString()
                         tvTotalCalories.text = currentCalories.toString()
                         tvTotalDistance.text= currentDistance.toString()
@@ -135,7 +160,7 @@ class DashboardActivity : AppCompatActivity() {
 //        }
 
     }
-    private fun getDate() : String{
+    private fun getDate(type:Int) : String{
         val c =Calendar.getInstance()
         var day = c.get(Calendar.DAY_OF_MONTH).toString()
         var month = (c.get(Calendar.MONTH) + 1).toString()
@@ -147,7 +172,11 @@ class DashboardActivity : AppCompatActivity() {
             month = "0$month"
         }
         val year = c.get(Calendar.YEAR).toString()
-        val date = "$day/$month/$year"
+        var date = "$day$month$year"
+        when(type){
+            1 -> {date = "$day/$month/$year"}
+        }
+
         return date
     }
     private fun emailToUserName(email : String ): String{
